@@ -128,3 +128,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+jvee-431218-70c41f8e44e2.json
+env_config.json
