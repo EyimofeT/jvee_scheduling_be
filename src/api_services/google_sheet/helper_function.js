@@ -188,3 +188,32 @@ export function filter_by_current_hour(timeList) {
 
     return filteredTimes;
 }
+
+export function validate_and_update_date(dateString) {
+    // Split the input date string into year, month, and day
+    let [year, month, day] = dateString.split('-');
+
+    // Create a Date object for the input date
+    const inputDate = new Date(year, month - 1, day);
+
+    // Create a Date object for today's date
+    const today = new Date();
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth() + 1; // Month is zero-based
+    const todayDay = today.getDate();
+
+    // Check if the input date is less than today's date
+    if (inputDate < today) {
+        // If so, update the date to today's date
+        year = todayYear;
+        month = todayMonth;
+        day = todayDay;
+    }
+
+    // Ensure day and month have two digits
+    month = month.toString().padStart(2, '0');
+    day = day.toString().padStart(2, '0');
+
+    // Return the updated date string in the format yyyy-mm-dd
+    return `${year}-${month}-${day}`;
+}

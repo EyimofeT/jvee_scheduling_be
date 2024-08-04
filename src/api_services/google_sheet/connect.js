@@ -6,7 +6,7 @@ import { JWT } from 'google-auth-library'
 import { customAlphabet } from 'nanoid';
 import { nanoid } from "nanoid";
 import { getenv } from "../../core/helper.js";
-import { createDateFromString, formatDate, getDaysOfMonthFromDate, generate_time_slots, extract_hour_from_datetime, filter_times_by_hour , create_date_time_string, is_today, filter_by_current_hour} from "./helper_function.js";
+import { createDateFromString, formatDate, getDaysOfMonthFromDate, generate_time_slots, extract_hour_from_datetime, filter_times_by_hour , create_date_time_string, is_today, filter_by_current_hour, validate_and_update_date} from "./helper_function.js";
 
 
 const CREDENTIALS = JSON.parse(fs.readFileSync('jvee-431218-70c41f8e44e2.json'))
@@ -146,6 +146,7 @@ export const get_available_time_slots = async (start_date, days, start_time, end
     // Define sheet and helper functions
     const sheet_title = "BOOKINGS";
     const sheet = doc.sheetsByTitle[sheet_title];
+    start_date = validate_and_update_date(start_date)
     const new_start_date = createDateFromString(start_date, start_time, month_plus);
     const service = await get_services_from_google_sheet_by_service_id(service_id);
     let general_time = generate_time_slots(days);
